@@ -8,4 +8,9 @@ span {
     display: flex;
     align-items: center;
     font-size: 1.5em;
+
+}
+
+.logo__title {
+    color: rgba(146, 255, 240, 0.8) !important;
 }

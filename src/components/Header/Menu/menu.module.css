@@ -1,12 +1,15 @@
 .menu__list {
     display: flex;
-    justify-content: end;
-    float: right;
     width: 100%;
     gap: 1em;
-    padding-right: 2em;
+    padding-top: 5px;
+    padding-left: 2em;
     align-items: center;
     list-style: none !important;
+}
+
+.menu__list > li {
+    color: white;
 }
 
 .menu__list>li:hover{

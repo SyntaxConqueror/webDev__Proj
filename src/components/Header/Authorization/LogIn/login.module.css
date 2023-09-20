@@ -1,0 +1,21 @@
+.login__btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__btn > a{
+    text-decoration: none;
+    color: white;
+    width: 70px;
+    padding: 10px;
+    text-align: center;
+    background: rgba(56, 225, 0, 0.3);
+    border-radius: 20px;
+    transition: all .3s;
+}
+
+.login__btn > a:hover {
+    transform: scale(1.1);
+}
