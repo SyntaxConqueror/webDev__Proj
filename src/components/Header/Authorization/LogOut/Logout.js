@@ -1,5 +1,4 @@
 import styles from './logout.module.css';
-import {useState} from "react";
 export const Logout = (props) => {
 
     return (

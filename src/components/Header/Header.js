@@ -6,15 +6,11 @@ import {Logout} from "./Authorization/LogOut/Logout";
 import {useState} from "react";
 export const Header = () => {
 
-    const [loginClicked, setLoginClicked] = useState(false);
-    const [logoutClicked, setLogoutClicked] = useState(true);
+    const [isLoginClicked, setIsLoginClicked]
+        = useState(false);
+
     const handleLoginClicked = () => {
-        setLoginClicked(true);
-        setLogoutClicked(false);
-    }
-    const handleLogoutClicked = () => {
-        setLogoutClicked(true);
-        setLoginClicked(false);
+        setIsLoginClicked(!isLoginClicked);
     }
 
     return (
@@ -24,11 +20,11 @@ export const Header = () => {
             <div className={styles.auth__btns}>
                 <Login
                     onLoginClick={handleLoginClicked}
-                    isLogoutClicked={logoutClicked}
+                    isLogoutClicked={!isLoginClicked}
                 />
                 <Logout
-                    onLogoutClick={handleLogoutClicked}
-                    isLoginClicked={loginClicked}
+                    onLogoutClick={handleLoginClicked}
+                    isLoginClicked={isLoginClicked}
                 />
             </div>
         </div>
