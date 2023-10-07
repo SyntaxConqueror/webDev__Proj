@@ -1,0 +1,34 @@
+.product__detail__container{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 1em;
+
+}
+
+.product__description {
+    text-align: justify;
+}
+
+.product__price {
+    background: #61dafb;
+    width: fit-content;
+    padding: .7em;
+    box-shadow: inset 0px 0px 5px 5px rgba(0,159,218,0.41),
+     0px 0px 5px 2px rgba(0,159,218,0.41);
+    border-radius: 50px;
+}
+
+.product__preview {
+    width: 100%;
+    aspect-ratio: 2;
+}
+
+.convert__container{
+    display: flex;
+    gap: .5em;
+}
+
+.convert__container > button {
+    padding: 0 1em;
+}

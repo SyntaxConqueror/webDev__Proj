@@ -1,0 +1,7 @@
+.product__page__container {
+    display: flex;
+}
+
+.product__page__container:first-child {
+    width: 100%;
+}

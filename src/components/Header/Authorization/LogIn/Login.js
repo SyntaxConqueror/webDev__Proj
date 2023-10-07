@@ -1,6 +1,6 @@
 import styles from './login.module.css';
 export const Login = (props) => {
-    console.log(props.isLogoutClicked);
+
     return (
         <div className={styles.login__btn}>
             <a
