@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import styles from './productDetail.module.css';
 import {Header} from "../../Header/Header";
 import {useConverter} from "../../../hooks/converterHook/useConverter";
+import {useLogger} from "../../../hooks/loggerHook/useLogger";
 const ProductDetail = ({ product }) => {
     const { name, description, price } = product;
     const {usdPrice, setConvertValue} = useConverter(0);
-
+    
     return (
 
         <div>

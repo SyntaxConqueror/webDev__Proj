@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import styles from './commentForm.module.css';
+import {useLogger} from "../../../hooks/loggerHook/useLogger";
 const CommentForm = () => {
     const [commentText, setCommentText] = useState('');
     const [comments, setComments] = useState([]);
+    const {setLoggerValue} = useLogger(null);
     const handleChange = (e) => {
         setCommentText(e.target.value);
+        setLoggerValue(e.target.value);
     };
 
     const addComment = (text) => {
