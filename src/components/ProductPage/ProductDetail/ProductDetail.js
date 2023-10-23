@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import styles from './productDetail.module.css';
 import {Header} from "../../Header/Header";
+import {useConverter} from "../../../hooks/converterHook/useConverter";
 const ProductDetail = ({ product }) => {
     const { name, description, price } = product;
-    const [usdPrice, setUsdPrice] = useState(0);
+    const {usdPrice, setConvertValue} = useConverter(0);
 
     return (
 
@@ -19,7 +20,7 @@ const ProductDetail = ({ product }) => {
                 <div className={styles.convert__container}>
                     <p className={styles.product__price}>Ціна: {price} грн</p>
                     <button
-                        onClick={()=> setUsdPrice(Math.round(price / 37.5))}
+                        onClick={()=>setConvertValue(price)}
                     >Конвертувати</button>
                     <p className={styles.product__price}>{usdPrice} USD</p>
                 </div>

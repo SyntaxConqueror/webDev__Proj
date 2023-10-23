@@ -17,7 +17,6 @@ const ProductPage = () => {
             <div className={styles.product__page__container}>
                 <ProductDetail product={productData} />
                 <CommentForm />
-                {/* Додайте тут компонент для конвертації валюти, якщо потрібно */}
             </div>
         </>
 
