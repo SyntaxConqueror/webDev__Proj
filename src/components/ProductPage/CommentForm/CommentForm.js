@@ -11,6 +11,10 @@ const CommentForm = () => {
     };
 
     const addComment = (text) => {
+        if(!text){
+            alert("Your message is empty!");
+            return;
+        }
         const comment = {content: text}
         setComments((prevState)=> {
             return [...prevState, comment];
@@ -19,7 +23,7 @@ const CommentForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Ваш відгук:', commentText);
+        console.log('Ваш відгук: ' + commentText + ' додано успішно!');
         alert('Ваш відгук: ' + commentText + ' додано успішно!');
         setCommentText('');
     };

@@ -13,12 +13,13 @@ export const ProductList = ({productList}) => {
     return (
         <>
             <ul className={styles.product__list}>
-                {productList.map((product, key) => {
+                {productList.map((product, index) => {
                     return (
                         <ListItem
-                            key={key}
+                            key={index}
+                            index={index}
                             getCheckBoxChange={getCheckBoxChange}
-                            product={product}/>
+                            product={Object.keys(product)[0]}/>
                     )
                 })}
             </ul>
