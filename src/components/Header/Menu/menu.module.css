@@ -1,6 +1,9 @@
 a {
-    text-decoration: none;
-    color: white;
+    text-decoration: none !important;
+    color: white !important;
+}
+ul {
+    margin-bottom: 0 !important;
 }
 .menu__list {
     display: flex;
@@ -14,9 +17,10 @@ a {
 
 .menu__list > li {
     color: white;
+    cursor: pointer;
 }
 
-.menu__list>li>a:hover{
+.menu__list>li:hover{
     cursor: pointer;
     color: #61dafb;
 }

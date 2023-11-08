@@ -1,7 +1,8 @@
 import {ListItem} from "./ListItem/ListItem";
 import styles from './productList.module.css';
-import {useState} from "react";
-export const ProductList = ({productList}) => {
+import {useContext, useState} from "react";
+import {DataContext} from "../../../App";
+export const ProductList = () => {
     const [productsCounter, setProductsCounter] = useState(0);
 
     const getCheckBoxChange = (checked) => {
@@ -12,17 +13,21 @@ export const ProductList = ({productList}) => {
 
     return (
         <>
-            <ul className={styles.product__list}>
-                {productList.map((product, index) => {
-                    return (
-                        <ListItem
-                            key={index}
-                            index={index}
-                            getCheckBoxChange={getCheckBoxChange}
-                            product={Object.keys(product)[0]}/>
-                    )
-                })}
-            </ul>
+            <DataContext.Consumer>
+                { products=> (
+                    <ul className={styles.product__list}>
+                        {products.map((product, index) => {
+                            return (
+                                <ListItem
+                                    key={index}
+                                    index={index}
+                                    getCheckBoxChange={getCheckBoxChange}
+                                    product={Object.keys(product)[0]}/>
+                            )
+                        })}
+                    </ul>
+                )}
+            </DataContext.Consumer>
             <div>Chosen products: {productsCounter}</div>
         </>
 

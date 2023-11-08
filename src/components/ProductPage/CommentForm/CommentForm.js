@@ -11,10 +11,8 @@ const CommentForm = () => {
     };
 
     const addComment = (text) => {
-        if(!text){
-            alert("Your message is empty!");
-            return;
-        }
+        if(!text) return alert("Your message is empty!");
+
         const comment = {content: text}
         setComments((prevState)=> {
             return [...prevState, comment];

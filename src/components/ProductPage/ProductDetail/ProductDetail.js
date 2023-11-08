@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from './productDetail.module.css';
 import {Header} from "../../Header/Header";
 import {useConverter} from "../../../hooks/converterHook/useConverter";
 import {useLogger} from "../../../hooks/loggerHook/useLogger";
-const ProductDetail = ({ product }) => {
-    const { name, description, price } = product;
+import {ProductData} from "../ProductPage";
+const ProductDetail = () => {
+
+    const { name, description, price } = useContext(ProductData);
     const {usdPrice, setConvertValue} = useConverter(0);
     
     return (
@@ -21,6 +23,7 @@ const ProductDetail = ({ product }) => {
                 <div className={styles.convert__container}>
                     <p className={styles.product__price}>Ціна: {price} грн</p>
                     <button
+                        className="btn btn-dark"
                         onClick={()=>setConvertValue(price)}
                     >Конвертувати</button>
                     <p className={styles.product__price}>{usdPrice} USD</p>
