@@ -5,3 +5,9 @@
 .product__page__container:first-child {
     width: 100%;
 }
+
+@media screen and (max-width: 1329px){
+    .product__page__container {
+        flex-direction: column;
+    }
+}

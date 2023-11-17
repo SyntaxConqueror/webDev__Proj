@@ -19,3 +19,14 @@
 .login__btn > a:hover {
     transform: scale(1.1);
 }
+
+span {
+    font-size: 1em;
+}
+
+.modal__body {
+    display: flex;
+    flex-direction: column;
+
+    padding: 2em 0;
+}
