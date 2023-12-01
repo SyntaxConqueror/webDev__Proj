@@ -1,9 +1,10 @@
 import styles from './login.module.css';
-import {Button, Input, Modal, Form} from 'antd';
+import {Button, Input, Modal} from 'antd';
 import {LockOutlined, UserOutlined} from '@ant-design/icons';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import React, {useState} from "react";
 import {FormInstance} from "antd/lib";
+import {Formik, Form, ErrorMessage, Field} from "formik";
 export const Login = (props) => {
 
     const [open, setOpen] = useState(false);
@@ -49,41 +50,61 @@ export const Login = (props) => {
                 onCancel={handleCancel}
                 footer={[]}
             >
-                <Form layout="vertical" className={styles.modal__body}>
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                type: "email",
-                                message: 'Please input your email!',
-                            },
-                        ]}
-                    >
-                        <Input size="large" prefix={<UserOutlined />} />
-                    </Form.Item>
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    validate={(values) => {
+                        const errors = {};
+                        if (!values.email) {
+                            errors.email = 'Please input your email!';
+                        } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
+                            errors.email = 'Invalid email address';
+                        }
+                        if (!values.password) {
+                            errors.password = 'Please input your password!';
+                        } else if (values.password.length < 6) {
+                            errors.password = 'Password should be longer than 6 symbols!';
+                        } else if (values.password.length > 12) {
+                            errors.password = 'Password should be less than 12 symbols!';
+                        }
+                        return errors;
+                    }}
+                    onSubmit={(values, { setSubmitting }) => {
+                        handleSubmit(values);
+                        setSubmitting(false);
+                    }}
+                >
+                    <Form className={styles.modal__body}>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <Field
+                                type="email"
+                                id="email"
+                                name="email"
+                                style={{width:"100%", marginBottom:10}}
+                                prefix={<UserOutlined />}
+                            />
+                            <ErrorMessage style={{color:"red", marginBottom:10}} name="email" component="div" className="ant-form-item-explain" />
+                        </div>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password
-                            size="large"
-                            prefix={<LockOutlined />}
-                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
-                    </Form.Item>
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <Field
+                                type="password"
+                                id="password"
+                                name="password"
+                                className="ant-input ant-input-lg"
+                                prefix={<LockOutlined />}
+                                style={{width:"100%", marginBottom:10}}
+                                iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                            />
+                            <ErrorMessage style={{color:"red", marginBottom:10}} name="password" component="div" className="ant-form-item-explain" />
+                        </div>
 
-                    <Button key="submit" htmlType="submit" type="primary" onClick={handleSubmit} loading={confirmLoading}>
-                        Login
-                    </Button>
-                </Form>
+                        <Button key="submit" htmlType="submit" type="primary" onClick={handleSubmit} loading={confirmLoading}>
+                            Login
+                        </Button>
+                    </Form>
+                </Formik>
 
             </Modal>
         </div>

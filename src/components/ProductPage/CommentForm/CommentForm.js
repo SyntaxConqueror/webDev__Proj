@@ -1,21 +1,29 @@
-import React, {useRef, useState} from 'react';
-import { Form, Input, Button, List, Avatar } from 'antd';
+import React, {useState} from 'react';
 import styles from './commentForm.module.css';
-import { useLogger } from '../../../hooks/loggerHook/useLogger';
-import {UserOutlined} from "@ant-design/icons";
-import { CSSTransition } from 'react-transition-group';
+import {ErrorMessage, Field, FormikProvider, useField, useFormik} from "formik";
+import * as Yup from "yup";
+import PropTypes from "prop-types";
+
+const CustomTextarea = ({ label, ...props }) => {
+    const [field, meta] = useField(props);
+
+    return (
+        <div>
+            <textarea {...field} {...props} placeholder={label} />
+            {meta.touched && meta.error ? (
+                <div style={{ color: 'red' }}>{meta.error}</div>
+            ) : null}
+        </div>
+    );
+};
+
+CustomTextarea.propTypes = {
+    label: PropTypes.string.isRequired,
+};
+
 
 const CommentForm = () => {
-    const [commentText, setCommentText] = useState('');
     const [comments, setComments] = useState([]);
-    const [showMessage, setShowMessage] = useState(true);
-    const { setLoggerValue } = useLogger(null);
-    const nodeRef = useRef(null);
-
-    const handleChange = (e) => {
-        setCommentText(e.target.value);
-        setLoggerValue(e.target.value);
-    };
 
     const addComment = (text) => {
         if (!text) return alert('Your message is empty!');
@@ -26,63 +34,46 @@ const CommentForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Ваш відгук: ' + commentText + ' додано успішно!');
-        alert('Ваш відгук: ' + commentText + ' додано успішно!');
-        setCommentText('');
-    };
+    const formik = useFormik({
+        initialValues: {
+            comment: '',
+        },
+        validationSchema: Yup.object({
+            comment: Yup.string().required('Comment is required'),
+        }),
+        onSubmit: (values, { resetForm }) => {
+            addComment(values);
+            resetForm();
+        },
+    });
 
     return (
-        <Form className={styles.comment__form} onFinish={handleSubmit}>
-            <div className={styles.comment__container}>
-                <List
-                    dataSource={comments}
-                    renderItem={(comment, index) => (
-                        <CSSTransition
-                            in={showMessage}
-                            nodeRef={nodeRef}
-                            timeout={1100}
-                            classNames={{
-                                enter: styles.alertEnter,
-                                enterActive: styles.alertEnterActive,
-                                exit: styles.alertExit,
-                                exitActive: styles.alertExitActive,
-                            }}
-                            unmountOnExit
-                        >
+        <FormikProvider value={formik}>
+            <form onSubmit={formik.handleSubmit} className={styles.comment__form}>
+                <div className={styles.comment__container}>
+                    {comments.map((comment, idx) => (
+                        <div key={idx}>
+                            <h5>User {idx + 1}</h5>
+                            <div style={{ paddingLeft: '10px' }}>{comment.content.comment}</div>
+                        </div>
+                    ))}
+                </div>
 
-                            <List.Item ref={nodeRef}>
-                                <List.Item.Meta
-                                    avatar={<Avatar icon={<UserOutlined />} />}
-                                    title={`User ${index + 1}`}
-                                    description={comment.content}
-                                />
-                            </List.Item>
-                        </CSSTransition>
-                    )}
-                />
-            </div>
-            <h4>Додати відгук:</h4>
-            <Form.Item>
-                <Input.TextArea
+                <CustomTextarea
                     className={styles.comment__textarea}
-                    value={commentText}
-                    onChange={handleChange}
-                    placeholder="Напишіть свій відгук..."
+                    label={"Залиште відгук"}
+                    id="comment"
+                    name="comment"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.comment}
                 />
-            </Form.Item>
 
-            <Button
-                onClick={() => addComment(commentText)}
-                className={styles.add_comment__btn}
-                type="primary"
-                htmlType="submit"
-            >
-                Додати відгук
-            </Button>
-
-        </Form>
+                <button className={styles.submit__btn} type="submit">
+                    Submit
+                </button>
+            </form>
+        </FormikProvider>
     );
 };
 

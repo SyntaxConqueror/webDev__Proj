@@ -3,13 +3,14 @@
     padding: 1em;
     display: flex;
     flex-direction: column;
-
     gap: .5em;
     margin-top: 4em;
 }
 
 .comment__textarea {
-    font-size: 1.3em;
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
 }
 
 .comment__container{
@@ -43,4 +44,41 @@
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
+}
+
+.submit__btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db; /* Change the background color to your preference */
+    color: #ffffff; /* Change the text color to your preference */
+}
+
+/* Hover Effect */
+.submit__btn:hover {
+    background-color: #2980b9; /* Change the hover background color */
+}
+
+/* Active State */
+.submit__btn:active {
+    background-color: #1f618d; /* Change the active background color */
+}
+
+/* Disabled State */
+.submit__btn:disabled {
+    background-color: #bdc3c7; /* Change the disabled background color */
+    color: #7f8c8d; /* Change the disabled text color */
+    cursor: not-allowed;
+}
+
+/* Additional Styling */
+.submit__btn:focus {
+    outline: none;
+    /* Add additional focus styles if needed */
 }
