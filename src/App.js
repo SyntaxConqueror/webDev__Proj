@@ -1,11 +1,12 @@
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {MainContainer} from "./components/MainContainer/MainContainer";
-import {BrowserRouter as Router, MemoryRouter, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import ProductPage from "./components/ProductPage/ProductPage";
-import {createContext, useContext, useEffect, useMemo, useState} from "react";
+import {createContext, useEffect} from "react";
 import React from 'react';
 import {HistoryProvider} from "./providers/HistoryProvider/HistoryProvider";
+import {Provider, useDispatch} from "react-redux";
+import {setProducts} from "./redux/actions";
 
 const products = [
     {"iPhone 15 Pro Max": 34400},
@@ -19,9 +20,13 @@ const products = [
     {"Nespresso Vertuo Coffee Maker": 12000},
     {"Fitbit Charge 5": 10000},
 ];
-export const DataContext = createContext(products);
 
 function App() {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(setProducts(products));
+    }, [dispatch]);
 
     return (
         <div>
